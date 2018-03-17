@@ -1426,7 +1426,7 @@ module.exports = {
                 { fileName :"197562.data", name:"Empty Plane v2" },
                 { fileName :"875614.data", name:"Unknown Mists Platforms" },
                 { fileName :"132853.data", name:"Empty Box" },
-                { fileName :"1255516.data", name:"Unknown HoT Arena" },
+                { fileName :"1255516.data", name:"Guild Coliseum" },
                 { fileName :"1498193.data", name:"Concept sPVP Map 1" },
                 { fileName :"1513556.data", name:"Concept sPVP Map 2" }, 
 				{ fileName :"1513607.data", name:"Concept sPVP Map 3" },
