@@ -5,6 +5,7 @@ Tyria 3D lets you explore textured Guild Wars 2 map files in 3D, directly in you
 
 ## Welcome to a developement version of Tyria 3D
 I am not the author of Tyria 3D, this work is only modifications of the existing code. But still, don't hesitate to report bugs or bring your expertise !
+Do you want to try it live ? [Come here !](https://njibhu.github.io/Tyria3DApp/)
 
 ## What's new ?
 * 1.0.4
@@ -21,9 +22,11 @@ The map list have been updated with the name of the maps ! Enjoy 76 new maps aut
 
 ## Copyrights
 _Concerning the content of the src/ folder_
+
 The copyright is still a bit unclear since this code was published without licenses so technically it's still full copyright to [RequestTimeout408](https://github.com/RequestTimeout408) with some parts ported to the actual state of Tyria3DLibrary.
 
 _Concerning the third party code_
+
 All code in 'vendor' folders are under the copyright and licenses of their respectful owners. Look at the headers of these files to find out.
 
 ## Contacts
