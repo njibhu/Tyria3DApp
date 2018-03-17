@@ -6,12 +6,14 @@ var browserify = require('browserify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var log = require('gulplog');
 var sass = require('gulp-sass');
 var rename = require('gulp-rename');
+var uglifyjs = require('uglify-es');
+var composer = require('gulp-uglify/composer');
+var uglify = composer(uglifyjs, console);
 
 gulp.task('t3dapp', function () {
     // set up the browserify instance on a task basis

@@ -191,60 +191,46 @@ UI.prototype.init=function(){
 	/// END Map Picker
 
 
-	/// UI to save zipped map
-	/*var saveBtn = $("<button>Save Map</button>");
-	saveBtn.click(function(){
-		map && map.download();
-	});
-	mapOpts.append(saveBtn);*/
-
-	
-
-	// Map opts
-	/*mapOpts.append($(
-		"<p class='label'>Fog distance</p>"+
-		"<div class='slider' id='fogSlider' tabindex='-1' />"//+
-		//"<div class='light'><p class='label'>Saturation</p>"+
-		//"<div class='slider' id='saturationSlider' tabindex='-1' /></div>"+
-		//"<div class='light'><p class='label'>Intensity</p>"+
-		//"<div class='slider' id='intensitySlider' tabindex='-1' /></div>"+
-		//"<div class='light'><p class='label'>Lightness</p>"+
-		//"<div class='slider' id='lightnessSlider' tabindex='-1' /></div>"
-	));*/
-
-
 	// Move opts
-	var movementOpts = $("<div class='ui-panel' id='optionsPanel'>"+
-			"<p class='title' id='mapTitle'></p>"+
-			"<p id='showMapSelection' class='optionsLink' tabindex='-1'>Back to map selection</p>"+
-		
-		"<p class='label'>View distance</p>"+
-		"<div class='slider' id='fogSlider' tabindex='-1' />"+
-
-		"<p class='label'>&#128161;</p>"+
-		"<div class='slider' id='ambientSlider' tabindex='-1' />"+
-
-		"<p class='label'>Speed [Scroll Up/Down]</p>"+
-		"<div class='slider' id='moveSpeedSlider' tabindex='-1' />"+
-
-		"<p class='label'>Mouse sensitivity</p>"+
-		"<div class='slider' id='mouseSensSlider' tabindex='-1' />"+
-
-
-		"<label class='noselect halfLabel'><p class='label'>Fly [F]</p>"+
-		"<input id='flyInput' type='checkbox' tabindex='-1' checked='checked'/></label>"+
-		"<label class='noselect halfLabel'><p class='label'>Invert mouse</p>"+
-		"<input id='invertInput' type='checkbox' tabindex='-1'/></label>"+
-
-		
-		"<p class='uiText'>Toggle UI [U], Toggle Stats [I], Orthographic Cam [O], Perspective Cam [P]</p>"+
-		"<button id='mouseLockBtn' tabindex='-1'>Lock Mouse</button>"+
-		
-		
-
-		"<label class='hidden'><p class='label nomargin'>Location URL</p>"+	
-		"<input class='hidden' id='locationInput' type='text'></input></label>"+	
-	"</div>");
+	var movementOpts = $(`<div class='ui-panel' id='optionsPanel'>
+			<p class='title' id='mapTitle'></p>
+			<p id='showMapSelection' class='optionsLink' tabindex='-1'>Back to map selection</p>
+			
+			<div>
+				<br/>
+				<span class='label'>View distance:</span><br/>
+				<div class='slider' id='fogSlider' tabindex='-1'></div>
+			</div>
+			
+			<div>
+				<span class='label'>&#128161;:</span>
+				<div class='slider' id='ambientSlider' tabindex='-1'></div>
+			</div>
+			
+			<div>
+				<span class='label'>Speed [Scroll Up/Down]:</span>
+				<div class='slider' id='moveSpeedSlider' tabindex='-1'></div>
+			</div>
+			
+			<div>
+				<span class='label'>Mouse sensitivity:</span>
+				<div class='slider' id='mouseSensSlider' tabindex='-1'></div>
+			</div>
+			
+			<div>
+				<label class='noselect halfLabel'><p class='label'>Fly [F]</p>
+				<input id='flyInput' type='checkbox' tabindex='-1' checked='checked'></input></label>
+				<label class='noselect halfLabel'><p class='label'>Invert mouse</p>
+				<input id='invertInput' type='checkbox' tabindex='-1'></input></label>
+			</div>
+			
+			<p class='uiText'>Toggle UI [U], Toggle Stats [I], Orthographic Cam [O], Perspective Cam [P]</p>
+			<button id='mouseLockBtn' tabindex='-1'>Lock Mouse</button>
+			
+			
+			<label class='hidden'><p class='label nomargin'>Location URL</p>	
+			<input class='hidden' id='locationInput' type='text'></input></label>	
+		</div>`);
 
     $UI.append(movementOpts);
 
