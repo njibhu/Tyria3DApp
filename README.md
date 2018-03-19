@@ -22,7 +22,6 @@ The map list have been updated with the name of the maps ! Enjoy 76 new maps aut
  * The SASS is just a copypaste but actually does not represent the css used.
  * UI code rework (it's a bit hacky)
  * Keyboard localization support
- * URL to automatically load a map
  * Would be neat to look a bit at the skydomes (especially since PoF)
  * Some transparent textures are not properly rendered
  * Optimisations ? (LOD could be improved)
