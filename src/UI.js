@@ -24,7 +24,7 @@ UI.prototype.logProgress = function(){
 	
 	/// Hack to keep the message about first time up.
 	if( arguments[0] != "Find type")
-		UI.op.find(".title").html(arguments[0]);
+		UI.op.find(".progressTitle").html(arguments[0]);
 
 	if(parseFloat(arguments[1])){
 		UI.op.find(".progress").html(arguments[1]+"%");	
@@ -53,7 +53,7 @@ UI.prototype.init=function(){
 	var outputWrapper = $("<div id='outputWrapper'/>");
 	outputWrapper.css({top:-500}).delay(tShort).animate({top:0},tLong);
 	var output = $("<div id='output' class='diagonalBG'/>");
-	//output.append("1. Load a Guild Wars 2 .dat file<br/><br/>2. Pick a map from the drop down menu");
+	
 	outputWrapper.append(output);
 	this.holder.append(outputWrapper);
 
@@ -77,8 +77,8 @@ UI.prototype.init=function(){
 
 	// Progress and mesages
 	var progressOutput = $("<div class='ui-panel hidden' id='progressPanel'>"+
-		"<p class='title'/>"+	
-		"<p class='progress'/>"+	
+		"<p class='progressTitle'></p>"+
+		"<p class='progress'></p>"+
 		"</div>");
 	output.append(progressOutput);
 
@@ -161,8 +161,8 @@ UI.prototype.init=function(){
 	
 
 	picker.change(function(evt){
-		var val = picker.val()
-		self.loadMap(val);
+		var val = picker.val();
+		self.loadMap(val, evt.value);
 
 		var label = $("#mapPicker option").filter(function() {
 	    	return $(this).val() == val; 
@@ -235,6 +235,10 @@ UI.prototype.init=function(){
     $UI.append(movementOpts);
 
     $("#showMapSelection").click(function(){
+
+		//Clear URL
+		window.location.hash = "";
+
     	$("#UI").addClass("hidden");
     	self.controller.setMapReady(false);
     	SceneUtils.swapPanels($("#suspendedPanel"),$("#mapPanel"));

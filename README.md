@@ -8,10 +8,15 @@ I am not the author of Tyria 3D, this work is only modifications of the existing
 Do you want to try it live ? [Come here !](https://njibhu.github.io/Tyria3DApp/)
 
 ## What's new ?
+* 1.0.5
+This is not so big update but with one cool feature.
+You can now browse a map to find something cool and then share the url to a friend. It will automatically load the map and the camera will be at the same place than when you share it!
+The navigation menu and the loading messages had some bugs that are now fixed.
+
 * 1.0.4
 This version of Tyria 3D is ported to the actual modifications I made to the Tyria3DLibrary.
 It allows you to browse on other (recent) browsers than google chrome ! (Currently only tested on Firefox) and brings few little modifications I made to the library.
-The map list have been updated with the name of the maps ! Enjoy 76 new maps automatically detected on startup (these have not been sorted out yet).
+The map list have been updated with the name of the maps ! Enjoy 76 new maps automatically detected on startup with the new way they are sorted !
 
 ## TODO ?
  * The SASS is just a copypaste but actually does not represent the css used.

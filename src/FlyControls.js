@@ -32,15 +32,20 @@ FlyControls.prototype.updateURL = function(){
 	
 	var mapFileName = $("#mapPicker").val();
 
-	$("#locationInput").val(
-		window.location.href.split("#")[0]+"#"+
-		mapFileName+","+
-		Math.round(pos.x*1000)/1000+","+
-		Math.round(pos.y*1000)/1000+","+
-		Math.round(pos.z*1000)/1000+","+
-		pitch+","+
-		yaw
-	);
+	var positionURL = {
+		map: mapFileName,
+		x: Math.round(pos.x*1000)/1000,
+		y: Math.round(pos.y*1000)/1000,
+		z: Math.round(pos.z*1000)/1000,
+		pitch: pitch,
+		yaw: yaw,
+		loadZone: $("#loadZone").prop("checked"), 
+		loadProp: $("#loadProp").prop("checked"), 
+		showHavok: $("#showHavok").prop("checked"),
+	};
+
+	//Write position to URL
+	window.location.hash = $.param(positionURL);
 
 }
 

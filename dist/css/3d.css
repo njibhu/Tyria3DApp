@@ -213,6 +213,12 @@ input.link{
     margin:5px 10px;
     position: relative;
 }
+.ui-panel .progressTitle{
+    margin:0;
+    /*font-weight: bold;*/
+    font-size: 22px;
+    text-align: center;
+}
 .ui-panel .title{
     margin:0;
     /*font-weight: bold;*/

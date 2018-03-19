@@ -25,6 +25,7 @@ var Tyria3DApp = module.exports = function() {
 	this.animating = false;
 	this.localReader = null;
 	this._mapRect = null;
+	this.mapAutoLoad = null;
 
 	this.animationTime = 350 * 0;
 
@@ -47,6 +48,9 @@ var Tyria3DApp = module.exports = function() {
 	 */
 	this.init = function(){
 		var self = this;
+
+		this.mapAutoLoad = parseUri(window.location.hash.slice(1));
+		console.log(this.mapAutoLoad);
 
 		// Hide intro div
 		$("#intro").hide();	
@@ -86,11 +90,11 @@ var Tyria3DApp = module.exports = function() {
 				/// Show progress panel during load.
 				SceneUtils.showProgressPanel(function(){		
 			
-					$("#output").find(".title").html("Finding maps (first visit only)");
+					$("#output").find(".progressTitle").html("Finding maps (first visit only)");
 					$("#output").find(".progress").html("initializing");
 
 					setTimeout(function(){
-							T3D.getMapListAsync(self.localReader, self.applyMapList, false);
+							T3D.getMapListAsync(self.localReader, self.applyMapList.bind(self), false);
 					},10);
 				});
 			}, undefined, undefined, "js/T3D/t3dworker.js");
@@ -118,7 +122,7 @@ var Tyria3DApp = module.exports = function() {
 
 				SceneUtils.showProgressPanel(function(){		
 			
-					$("#output").find(".title").html("Finding maps (first visit only)");
+					$("#output").find(".progressTitle").html("Finding maps (first visit only)");
 					$("#output").find(".progress").html("initializing");
 
 					setTimeout(function(){
@@ -162,6 +166,30 @@ var Tyria3DApp = module.exports = function() {
 	this.loadMap = function(fileName, absolute){
 
 		var self = this;
+		
+		var showHavok;
+		if( self.mapAutoLoad.showHavok != undefined ) {
+			showHavok = self.mapAutoLoad.showHavok;
+			$("#showHavok").prop("checked", showHavok);
+		} else {
+			showHavok = $("#showHavok").prop("checked");
+		}
+
+		var loadProp;
+		if( self.mapAutoLoad.loadProp != undefined ) {
+			loadProp = self.mapAutoLoad.loadProp;
+			$("#loadProp").prop("checked", loadProp);
+		} else {
+			loadProp = $("#loadProp").prop("checked");
+		}
+			
+		var loadZone;
+		if( self.mapAutoLoad.loadZone != undefined ) {
+			loadZone = self.mapAutoLoad.loadZone;
+			$("#loadZone").prop("checked", loadZone);
+		} else {
+			loadZone = $("#loadZone").prop("checked");
+		}
 
 		/// Pop up the progres panel
 		SceneUtils.showProgressPanel(function(){
@@ -175,7 +203,7 @@ var Tyria3DApp = module.exports = function() {
 				{
 					renderClass: T3D.HavokRenderer,
 					settings:{
-						visible: $("#showHavok")[0].checked
+						visible: showHavok
 					}
 				},
 				{
@@ -190,13 +218,13 @@ var Tyria3DApp = module.exports = function() {
 				}				
 			];
 
-		    if( $('#loadZone').prop("checked") ){
+		    if( loadZone ){
 		    	renderers.push({
 		    		renderClass: T3D.ZoneRenderer,
 		    		settings:{}
 		    	});
 		    }
-		    if( $('#loadProp').prop("checked") ){
+		    if( loadProp ){
 		    	renderers.push({
 		    		renderClass: T3D.PropertiesRenderer,
 		    		settings:{}
@@ -293,10 +321,23 @@ var Tyria3DApp = module.exports = function() {
 		/// Set camera position
 		var controls = this.controller.getControls();
 		controls.getObject().position.set(0, mapData.TerrainRenderer.bounds ? mapData.TerrainRenderer.bounds.y2 : 0, 0);
-		controls.getPitchObject().rotation.x = -Math.PI/2;		
+		controls.getPitchObject().rotation.x = -Math.PI/2;
+		
+		//Replace camera from autoload
+		if(this.mapAutoLoad.x != undefined && this.mapAutoLoad.y != undefined && this.mapAutoLoad.z != undefined) {
+			controls.getObject().position.set(this.mapAutoLoad.x, this.mapAutoLoad.y, this.mapAutoLoad.z);
+		}
+		if(this.mapAutoLoad.yaw != undefined && this.mapAutoLoad.pitch != undefined) {
+			controls.getPitchObject().rotation.x = this.mapAutoLoad.pitch;
+			controls.getObject().rotation.y = this.mapAutoLoad.yaw;
+		}
+
+		//Clean the autoload
+		this.mapAutoLoad = {};
 
 		// Initial render, indep. of controller being active
 		SceneUtils.render();
+
 
 		// Show canvas
 		SceneUtils.setRenderVisible(true);
@@ -307,6 +348,7 @@ var Tyria3DApp = module.exports = function() {
 			this.animate(0);	
 		}
 
+		this.controller.updateURL();
 
 	}//End onload callback
 
@@ -317,6 +359,9 @@ var Tyria3DApp = module.exports = function() {
 	 * @return {[type]}         [description]
 	 */
 	this.applyMapList = function(mapList){
+		var self = this;
+
+		this.mapAutoLoad = parseUri(window.location.hash.slice(1));
 
 		/// Update picker elements
 		var picker = $("#mapPicker");
@@ -345,7 +390,18 @@ var Tyria3DApp = module.exports = function() {
 			
 		});
 
-		SceneUtils.showMapPanel();		
+		SceneUtils.showMapPanel();
+		
+		//If there is some map autoloading we check if the map have been detected then trigger the load event
+		if(self.mapAutoLoad['map'] != undefined){
+			$("#mapPicker option").each(function(){
+				if(self.mapAutoLoad['map'] == this.value){
+					var e = $.Event("change");
+					$("#mapPicker").val(this.value);
+					$("#mapPicker").trigger(e);
+				}
+			})
+		}
 	}
 
 	this.mouseWheelListener = function(evt){
@@ -450,8 +506,26 @@ Tyria3DApp.prototype.onDocumentReady = function(){
 
   	/// If everyting is ok, enable the button that shows the file picker.
   	else{
+		if(window.location.hash.length > 1 ){
+			self.initAnim();
+		}
 		$("#ILoveYouDiddi").removeClass("hidden").one("click",self.initAnim.bind(self));
   	}
+}
+
+function parseUri(uri){
+	var data = uri.split("&");
+	var result = {};
+	if(uri.length < 1) { return result; };
+	for(elt of data){
+		elt = elt.split("=");
+		if(elt[1] == "true" || elt[1] == "false"){
+			result[elt[0]] = (elt[1] == "true");
+		} else {
+			result[elt[0]] = Number(elt[1]);
+		}
+	}
+	return result;
 }
 
 /// Starting point

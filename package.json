@@ -1,6 +1,6 @@
 {
   "name": "tyria3dapp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "devDependencies": {
     "browserify": "^16.1.1",
     "gulp": "^3.9.1",

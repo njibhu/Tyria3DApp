@@ -24,11 +24,8 @@ function traverseLODs( object ) {
 	}
 }
 
-
-
 module.exports = {
 	setupScene : function() {
-
 		/// Create scene instance
 		scene = new THREE.Scene();
 		skyScene = new THREE.Scene();
@@ -61,74 +58,12 @@ module.exports = {
 		directionalLight.position.set( -1, 1, -1 );
 		scene.add( directionalLight );
 
-		/*
-
-		var d = 0.53;
-		var h = 0.27;
-		var dh = 0.2;
-		var s = 0.4;//0.3
-		var l = 0.6;//0.5
-
-		var alpha = 0.45;
-
-		for(var i=0; i<5; i++){
-			var li = new THREE.DirectionalLight( 0, 1);
-			scene.add(li);
-			lights.push(li);
-		}
-
-		lights[0].position.set( 0, 1, 0  );
-		lights[1].position.set( -0.5, 0*0.5, -d );
-		lights[2].position.set( 0.5, 0, -d );
-		lights[3].position.set( 0, -1, 0 );
-		lights[4].position.set( 0, 0*-0.5, d );
-
-		this.setHSLa(h,s,l,alpha);*/
-
-
-
-
-		/// Add directional lights
-		/*var d5 = new THREE.DirectionalLight( 0, alpha);
-		d5.color.setHSL( h, s, l );
-		d5.position.set( 0, 1, 0  );
-		scene.add( d5 );
-
-		var d1 = new THREE.DirectionalLight( 0, alpha);
-		h=(h+dh)%1;
-		d1.color.setHSL( h, s, l );
-		d1.position.set( -0.5, 0*0.5, -d );
-		scene.add( d1 );
-
-		var d2 = new THREE.DirectionalLight( 0, alpha );
-		h=(h+dh)%1;
-		d2.color.setHSL( h, s, l );
-		d2.position.set( 0.5, 0, -d );
-		scene.add( d2 );
-
-
-		var d4 = new THREE.DirectionalLight( 0, alpha );
-		h=(h+dh)%1;
-		d4.color.setHSL( h, s, l );
-		d4.position.set( 0, -1, 0 );
-		scene.add( d4 );
-		
-		var d3 = new THREE.DirectionalLight( 0, alpha );
-		h=(h+dh)%1;
-		d3.color.setHSL( h, s, l );
-		d3.position.set( 0, 0*-0.5, d );
-		scene.add( d3 );*/
-
 		//Fog
 		scene.fog = new THREE.Fog(0xffffff, Math.max(1,fogDistance - cameraOpts.foglength), fogDistance);
 
 		// LOD updates scene by itself before render is called, don't do it twice!
 		//scene.matrixAutoUpdate = false;
 		//scene.autoUpdate = false;
-		
-		/*var light = new THREE.PointLight( 0xffffff, 0.7, 5000 );
-		light.position.set( 50, 50, 50 );
-		camera.add(light);*/
 		
 		/// Create canvas rendering output
 		renderer = new THREE.WebGLRenderer({
@@ -141,8 +76,7 @@ module.exports = {
 		});
 		renderer.sortObjects = false;
 		renderer.setSize(sceneWidth, window.innerHeight);
-		//renderer.setClearColor( 0xffffff, 1.0 );
-		//renderer.setClearColor( 0xccbbdd );
+
 		renderer.autoClear = false;
 
 		renderer.domElement.style.position = "absolute";
@@ -342,7 +276,7 @@ module.exports = {
 			return;
 		}
 
-		pp.find(".title").html("Loading");
+		pp.find(".progressTitle").html("Loading");
 		pp.find(".progress").html("...");
 
 		this.showPanel(pp, cb);
@@ -356,9 +290,7 @@ module.exports = {
 		var currentPanel = $("#output").find(".ui-panel:visible");
 
 		this.swapPanels(currentPanel, panelIn, true, cb);
-		/*panelIn.css({left:"auto",right:"auto"});
-		panelIn.siblings().addClass("hidden");
-		panelIn.removeClass("hidden");*/
+
 	},
 
 	swapPanels: function(panelOut, panelIn, dir, cb){
