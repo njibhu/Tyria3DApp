@@ -14,6 +14,8 @@ var rename = require('gulp-rename');
 var uglifyjs = require('uglify-es');
 var composer = require('gulp-uglify/composer');
 var uglify = composer(uglifyjs, console);
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 
 gulp.task('t3dapp', function () {
     // set up the browserify instance on a task basis
@@ -57,3 +59,11 @@ gulp.task("sass", function () {
         .pipe(rename('__3d.css'))
         .pipe(gulp.dest('./dist/css'));
 });
+
+gulp.task('watch', function () {
+    watch('./src/**/*.js', batch(function (events, done) {
+        gulp.start('t3dapp', done);
+    }));
+});
+
+gulp.task('default',['t3dapp']);
