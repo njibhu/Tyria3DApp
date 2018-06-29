@@ -1289,7 +1289,9 @@ module.exports = {
 				{ fileName: "1956140.data", name:"(E2) Frostgorge Sound"},
 				{ fileName: "1956245.data", name:"(E2) Void"},
 				{ fileName: "1956299.data", name:"(E2) Hided Inquest Lab"},
-				{ fileName: "1957526.data", name:"(E2) Sandswept Isles"}
+				{ fileName: "1957526.data", name:"(E2) Sandswept Isles"},
+                { fileName: "2005467.data", name:"(E3) Crystal Oasis"},
+                { fileName: "2004704.data", name:"(E3) Domain of Koruna"},
             ]
         },
         {
@@ -1350,6 +1352,7 @@ module.exports = {
                 { fileName: "1733961.data", name:"Mistlock Sanctuary"},
                 { fileName: "1905739.data", name:"Molten Boss Fractal"},
 				{ fileName: "1905889.data", name:"Twilight Oasis Fractal"},
+                { fileName: "2005713.data", name:"Deepstone Fractal"},
             ]
         },
         {
